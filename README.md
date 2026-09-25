@@ -51,6 +51,9 @@ python3 mesh_chat.py "TuNombre"
 MESH_BROKER=127.0.0.1 python3 mesh_chat.py "Irwing"
 ```
 
+*(Opcional)* Para un **grupo privado gratis con usuario/contraseña + TLS**, mira
+[`HIVEMQ.md`](HIVEMQ.md).
+
 ### 3. ¡Chatea!
 
 Escribe y pulsa **Enter** para enviar. Los mensajes de los demás aparecen solos.
@@ -123,10 +126,13 @@ por variables de entorno:
 | Variable | Por defecto | Qué es |
 |----------|-------------|--------|
 | `MESH_BROKER`  | `broker.hivemq.com` | IP/host del broker MQTT (público gratis por defecto) |
-| `MESH_PORT`    | `1883` | Puerto del broker |
+| `MESH_PORT`    | `1883` | Puerto del broker (`8883` con TLS) |
 | `MESH_REGION`  | `MX` | Segmento de región del topic |
 | `MESH_CHANNEL` | `KimeDemo` | Nombre del canal (grupo) |
 | `MESH_KEY`     | *(clave del repo)* | Clave AES de 16 bytes en hex |
+| `MESH_USER`    | *(vacío)* | Usuario del broker (p. ej. HiveMQ Cloud) |
+| `MESH_PASS`    | *(vacío)* | Contraseña del broker |
+| `MESH_TLS`     | *(off)* | `1` para conexión cifrada TLS (HiveMQ Cloud) |
 
 **Para crear tu propio grupo privado**, genera una clave nueva y repártela solo a
 quien quieras que entre:

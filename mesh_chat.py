@@ -38,8 +38,19 @@ BROKER = os.environ.get("MESH_BROKER", "broker.hivemq.com")
 PORT = int(os.environ.get("MESH_PORT", "1883"))
 REGION = os.environ.get("MESH_REGION", "MX")      # segmento del topic
 
-# Credenciales SOLO para el broker oficial de Meshtastic; los públicos van anónimos.
-USER, PASSWORD = ("meshdev", "large4cats") if "meshtastic.org" in BROKER else (None, None)
+# Credenciales:
+#  - Si defines MESH_USER/MESH_PASS (p. ej. para HiveMQ Cloud), se usan esas.
+#  - Si no, y el broker es el de Meshtastic, se usan las públicas de Meshtastic.
+#  - Si no, conexión anónima (brokers públicos como broker.hivemq.com).
+if os.environ.get("MESH_USER"):
+    USER, PASSWORD = os.environ["MESH_USER"], os.environ.get("MESH_PASS", "")
+elif "meshtastic.org" in BROKER:
+    USER, PASSWORD = "meshdev", "large4cats"
+else:
+    USER, PASSWORD = None, None
+
+# TLS: actívalo con MESH_TLS=1 (obligatorio en HiveMQ Cloud, puerto 8883).
+USE_TLS = os.environ.get("MESH_TLS", "").lower() in ("1", "true", "yes")
 
 # ↓↓↓ CAMBIEN ESTO ENTRE TODOS (mismo canal + misma clave = mismo grupo privado) ↓↓↓
 CHANNEL = os.environ.get("MESH_CHANNEL", "KimeDemo")
@@ -130,6 +141,8 @@ def main():
     client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
     if USER:
         client.username_pw_set(USER, PASSWORD)
+    if USE_TLS:
+        client.tls_set()  # usa los certificados CA del sistema
     client.on_connect = on_connect
     client.on_message = on_message
     client.connect(BROKER, PORT, 60)

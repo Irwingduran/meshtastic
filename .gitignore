@@ -10,5 +10,9 @@ __pycache__/
 *.log
 mosquitto.log
 
+# Credenciales del grupo (nunca subir)
+.env-grupo
+.env
+
 # Sistema
 .DS_Store
