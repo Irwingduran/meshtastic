@@ -31,25 +31,27 @@ pip install -r requirements.txt
 
 > Necesitas **Python 3.9+**. En Mac: `brew install python`.
 
-### 2. Consigue la dirección del broker
+### 2. Entra al chat (¡sin montar nada!)
 
-Para chatear, **todos se conectan al mismo broker MQTT**. Una persona lo hospeda
-(ver [Hospedar el broker](#-hospedar-el-broker)) y comparte su **IP**. Si sois
-todos en la misma máquina de pruebas, el broker es `127.0.0.1`.
-
-### 3. Entra al chat
+Por defecto el chat usa un **broker MQTT público gratuito** (`broker.hivemq.com`),
+así que **no necesitas hospedar ningún servidor**. Solo corre:
 
 ```bash
-MESH_BROKER=<IP-DEL-BROKER> python3 mesh_chat.py "TuNombre"
+python3 mesh_chat.py "TuNombre"
 ```
 
-Ejemplo en tu propia máquina:
+> 🔒 Tus mensajes van **cifrados** con la clave del grupo. El broker público y
+> cualquier otro solo ven **texto cifrado**; únicamente quien tenga tu `MESH_KEY`
+> puede leerlos.
+
+*(Opcional)* Si prefieres tu propio broker (más privado, ver
+[Hospedar tu propio broker](#-opcional-hospedar-tu-propio-broker)):
 
 ```bash
 MESH_BROKER=127.0.0.1 python3 mesh_chat.py "Irwing"
 ```
 
-### 4. ¡Chatea!
+### 3. ¡Chatea!
 
 Escribe y pulsa **Enter** para enviar. Los mensajes de los demás aparecen solos.
 **Ctrl+C** para salir.
@@ -65,10 +67,11 @@ Escribe y pulsa **Enter** para enviar. Los mensajes de los demás aparecen solos
 
 ---
 
-## 📡 Hospedar el broker
+## 📡 (Opcional) Hospedar tu propio broker
 
-El chat necesita **un** broker MQTT que todos alcancen. **Una** persona lo corre y
-comparte su IP; los demás la ponen en `MESH_BROKER`.
+**No hace falta** para chatear: por defecto se usa el broker público gratuito. Pero
+si quieres un broker propio (más privado, o para una red sin internet), **una**
+persona lo corre y comparte su IP; los demás la ponen en `MESH_BROKER`.
 
 ```bash
 brew install mosquitto      # una vez
@@ -87,10 +90,11 @@ Deja esa terminal abierta (muestra el log del broker). **Ctrl+C** lo apaga.
   `mosquitto -c mosquitto.conf` con `listener 1883 0.0.0.0`). Para uso serio,
   añade usuario/contraseña y TLS — hoy va **anónimo**, pensado para demos.
 
-> ℹ️ **¿Por qué no el broker público de Meshtastic?** `mqtt.meshtastic.org` sirve
-> para *escuchar* la red mundial, pero **no reenvía** mensajes inyectados en
-> canales propios (está para puentear nodos reales). Para chatear entre ustedes
-> necesitan su propio broker.
+> ℹ️ **Sobre los brokers.** Un broker MQTT **genérico** (como el `broker.hivemq.com`
+> que usamos por defecto, o el tuyo propio) reenvía cualquier mensaje: sirve para el
+> chat. El broker **de Meshtastic** (`mqtt.meshtastic.org`) es especial —
+> **no reenvía** mensajes inyectados en canales propios (solo puentea nodos reales),
+> así que sirve para *escuchar* la red mundial pero no para chatear entre ustedes.
 
 ---
 
@@ -118,7 +122,7 @@ por variables de entorno:
 
 | Variable | Por defecto | Qué es |
 |----------|-------------|--------|
-| `MESH_BROKER`  | `mqtt.meshtastic.org` | IP/host del broker MQTT |
+| `MESH_BROKER`  | `broker.hivemq.com` | IP/host del broker MQTT (público gratis por defecto) |
 | `MESH_PORT`    | `1883` | Puerto del broker |
 | `MESH_REGION`  | `MX` | Segmento de región del topic |
 | `MESH_CHANNEL` | `KimeDemo` | Nombre del canal (grupo) |

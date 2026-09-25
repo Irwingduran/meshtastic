@@ -32,10 +32,14 @@ from meshtastic.protobuf import mesh_pb2, mqtt_pb2, portnums_pb2
 # ─────────────────────────────────────────────────────────────────────────────
 # CONFIGURACIÓN DEL GRUPO — esto es lo que "ellos" deben compartir contigo
 # ─────────────────────────────────────────────────────────────────────────────
-BROKER = os.environ.get("MESH_BROKER", "mqtt.meshtastic.org")
+# Por defecto usamos un broker MQTT público GRATIS (sin registro, en internet).
+# Como los mensajes van cifrados con la KEY del grupo, el broker solo ve ruido.
+BROKER = os.environ.get("MESH_BROKER", "broker.hivemq.com")
 PORT = int(os.environ.get("MESH_PORT", "1883"))
-USER, PASSWORD = "meshdev", "large4cats"          # credenciales públicas del broker
 REGION = os.environ.get("MESH_REGION", "MX")      # segmento del topic
+
+# Credenciales SOLO para el broker oficial de Meshtastic; los públicos van anónimos.
+USER, PASSWORD = ("meshdev", "large4cats") if "meshtastic.org" in BROKER else (None, None)
 
 # ↓↓↓ CAMBIEN ESTO ENTRE TODOS (mismo canal + misma clave = mismo grupo privado) ↓↓↓
 CHANNEL = os.environ.get("MESH_CHANNEL", "KimeDemo")
@@ -124,7 +128,8 @@ def on_message(client, userdata, msg):
 
 def main():
     client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
-    client.username_pw_set(USER, PASSWORD)
+    if USER:
+        client.username_pw_set(USER, PASSWORD)
     client.on_connect = on_connect
     client.on_message = on_message
     client.connect(BROKER, PORT, 60)
