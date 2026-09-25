@@ -4,6 +4,10 @@ Escucha la red **Meshtastic** mundial y **chatea en grupo** con tus compañeros,
 todo por software (sin radios LoRa), usando el mismo formato cifrado que los
 nodos reales.
 
+> 🤖 **¿No eres técnico?** Abre [`AGENTE.md`](AGENTE.md): está escrito para que un
+> asistente de IA (Claude Code, Cursor…) haga todo el setup por ti. Solo tienes que
+> decirle _"lee AGENTE.md y ayúdame a unirme al chat"_.
+
 Dos herramientas:
 
 | Script | Qué hace |
