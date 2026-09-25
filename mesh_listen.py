@@ -16,6 +16,12 @@ Ctrl+C para salir.
 import sys
 from datetime import datetime
 
+# Windows: fuerza UTF-8 en la salida para que los emojis no rompan la consola.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 import paho.mqtt.client as mqtt
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from meshtastic.protobuf import mesh_pb2, mqtt_pb2, portnums_pb2, telemetry_pb2

@@ -80,12 +80,24 @@ brew install mosquitto        # macOS (una vez). Linux: sudo apt install mosquit
 ### Paso 6 — Entrar al chat
 En una terminal con el `venv` activado. **Camino normal (broker público, gratis):**
 ```bash
-python3 mesh_chat.py "<NOMBRE>"
+python3 mesh_chat.py "<NOMBRE>"          # Windows: python mesh_chat.py "<NOMBRE>"
 ```
-Si usan un broker propio, antepongan su dirección:
+Si usan un broker propio, antepongan su dirección (ojo con la sintaxis por SO):
 ```bash
-MESH_BROKER=<IP-DEL-BROKER> python3 mesh_chat.py "<NOMBRE>"
+# macOS / Linux
+MESH_BROKER=<IP> python3 mesh_chat.py "<NOMBRE>"
+# Windows PowerShell
+$env:MESH_BROKER="<IP>"; python mesh_chat.py "<NOMBRE>"
+# Windows cmd.exe
+set MESH_BROKER=<IP> && python mesh_chat.py "<NOMBRE>"
 ```
+
+**Notas de Windows (impórtalas al adaptar comandos):**
+- Usa `python` en vez de `python3`, y activa el venv con `venv\Scripts\activate`.
+- Las variables de entorno NO se ponen al inicio de la línea como en Mac/Linux;
+  usa `$env:VAR="..."` (PowerShell) o `set VAR=...` (cmd) antes del comando.
+- Si `python` no existe, instálalo desde https://python.org marcando *"Add to PATH"*
+  (o desde Microsoft Store).
 
 ### Paso 7 — Explícale cómo usarlo
 Dile, en palabras simples:

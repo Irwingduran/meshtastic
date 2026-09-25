@@ -54,6 +54,19 @@ MESH_BROKER=127.0.0.1 python3 mesh_chat.py "Irwing"
 *(Opcional)* Para un **grupo privado gratis con usuario/contraseña + TLS**, mira
 [`HIVEMQ.md`](HIVEMQ.md).
 
+> 🪟 **En Windows** funciona igual, con dos cambios: usa **`python`** (no `python3`)
+> y activa el entorno con **`venv\Scripts\activate`**. El camino normal (broker
+> público) no necesita variables de entorno: solo `python mesh_chat.py "TuNombre"`.
+> Si necesitas pasar variables (broker propio o HiveMQ), la sintaxis es distinta:
+> ```powershell
+> # PowerShell
+> $env:MESH_BROKER="127.0.0.1"; python mesh_chat.py "Ana"
+> ```
+> ```bat
+> REM cmd.exe
+> set MESH_BROKER=127.0.0.1 && python mesh_chat.py "Ana"
+> ```
+
 ### 3. ¡Chatea!
 
 Escribe y pulsa **Enter** para enviar. Los mensajes de los demás aparecen solos.

@@ -44,6 +44,26 @@ MESH_BROKER="abc123def456.s1.eu.hivemq.cloud" MESH_PORT=8883 MESH_TLS=1 \
 MESH_USER="equipo" MESH_PASS="la-contraseña" python3 mesh_chat.py "TuNombre"
 ```
 
+**En Windows** (usa `python`, no `python3`):
+
+```powershell
+# PowerShell
+$env:MESH_BROKER="abc123def456.s1.eu.hivemq.cloud"
+$env:MESH_PORT="8883"; $env:MESH_TLS="1"
+$env:MESH_USER="equipo"; $env:MESH_PASS="la-contraseña"
+python mesh_chat.py "TuNombre"
+```
+
+```bat
+REM cmd.exe
+set MESH_BROKER=abc123def456.s1.eu.hivemq.cloud
+set MESH_PORT=8883
+set MESH_TLS=1
+set MESH_USER=equipo
+set MESH_PASS=la-contraseña
+python mesh_chat.py "TuNombre"
+```
+
 > 💡 Para no reescribir esto cada vez, guarda esas líneas `export ...` en un archivo
 > `.env-grupo` y ejecútalo con `source .env-grupo` antes de entrar al chat. **No lo
 > subas al repositorio** (contiene la contraseña).
