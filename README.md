@@ -120,13 +120,17 @@ Sin configurar nada, mira tráfico **real** de nodos Meshtastic de todo el mundo
 
 ```bash
 source venv/bin/activate
-python3 mesh_listen.py        # todo el mundo (mucho tráfico)
-python3 mesh_listen.py MX     # solo región MX
+python3 mesh_listen.py MX     # solo región MX (recomendado)
 python3 mesh_listen.py US     # solo región US
+python3 mesh_listen.py        # todo el mundo (ver nota)
 ```
 
 Cada línea es un paquete real que un nodo LoRa emitió y un gateway subió a MQTT.
 **Ctrl+C** muestra un resumen.
+
+> ⚠️ **Usa siempre un filtro de región** (`MX`, `US`, …). El modo "todo el mundo"
+> (`msh/#`) suele hacer que el broker público de Meshtastic **corte la conexión**
+> por ser una suscripción demasiado amplia (se queda reconectando sin recibir nada).
 
 ---
 

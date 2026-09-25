@@ -7,9 +7,12 @@ Instalación (Mac, ~1 min):
     python3 -m pip install --user paho-mqtt meshtastic cryptography
 
 Uso:
-    python3 mesh_listen.py            # todo el mundo
-    python3 mesh_listen.py MX         # solo nodos que suben con región MX
-    python3 mesh_listen.py US         # etc.
+    python3 mesh_listen.py MX         # solo región MX (RECOMENDADO)
+    python3 mesh_listen.py US         # solo región US
+    python3 mesh_listen.py            # todo el mundo (ver nota)
+
+Nota: usa siempre un filtro de región. El modo "todo el mundo" (msh/#) suele hacer
+que el broker público corte la conexión por suscripción demasiado amplia.
 
 Ctrl+C para salir.
 """
