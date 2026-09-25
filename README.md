@@ -7,6 +7,9 @@ nodos reales.
 > 🤖 **¿No eres técnico?** Abre [`AGENTE.md`](AGENTE.md): está escrito para que un
 > asistente de IA (Claude Code, Cursor…) haga todo el setup por ti. Solo tienes que
 > decirle _"lee AGENTE.md y ayúdame a unirme al chat"_.
+>
+> 🎤 **¿Vas a presentarlo?** En [`DEMO.md`](DEMO.md) tienes un guión con los comandos
+> listos para copiar y pegar, uno por slide.
 
 Dos herramientas:
 
