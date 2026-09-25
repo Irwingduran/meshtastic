@@ -1,0 +1,14 @@
+# Entorno virtual (cada quien crea el suyo)
+venv/
+.venv/
+
+# Cache de Python
+__pycache__/
+*.py[cod]
+
+# Logs del broker
+*.log
+mosquitto.log
+
+# Sistema
+.DS_Store
